@@ -22,7 +22,6 @@ public class Disparar extends Thread{
     @Override
     public void run(){
         if(PanelJuego.bala==1){
-            System.out.println("Dispare :v "+nave.getY()+" " +(nave.getY()+2));
             JLabel bala = new JLabel();
             bala.setOpaque(true);
             bala.setBackground(Color.red);

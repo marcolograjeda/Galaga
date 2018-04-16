@@ -28,6 +28,7 @@ import javax.swing.JToolBar;
 public class VistaPrincipal {
     static JPanel panel;
     static PanelJuego juego;
+    
     public void crearVista(){
         JFrame vistaPrincipal = new JFrame();
         vistaPrincipal.setSize(900,650);
@@ -84,10 +85,7 @@ public class VistaPrincipal {
         vistaPrincipal.getContentPane().add(menu, BorderLayout.NORTH);
         //vistaPrincipal.setJMenuBar(menu);
         vistaPrincipal.setVisible(true);
-        MoverNave mn = new MoverNave();
-        mn.start();
-        MoverBala mb = new MoverBala();
-        mb.start();
+        
     }
     
     public void eventos(JMenuItem itmDelMenu){
