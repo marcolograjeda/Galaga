@@ -10,24 +10,25 @@ package galaga;
  * @author Junior
  */
 public class Ejecucion {
-    boolean aTiempo = true;
-    boolean puntos = true;
-    boolean aVelocidad = true;
-    boolean dTiempo = true;
-    boolean penalizacion = true;
-    boolean congelacion = true;
-    int[] opciones = new int[3]; //frecuencia = [0], nivel = [1], tiempoDuracion = [2]
+    static boolean aTiempo = true;
+    static boolean puntos = true;
+    static boolean aVelocidad = true;
+    static boolean dTiempo = true;
+    static boolean penalizacion = true;
+    static boolean congelacion = true;
+    static double[] opciones = new double[3]; //frecuencia = [0], nivel = [1], tiempoDuracion = [2]
     
     public void iniciarJuego(){
-        VistaPrincipal vPrin = new VistaPrincipal();
-        vPrin.crearVista();
         opciones[0] = 1;
         opciones[1] = 0;
         opciones[2] = 1;
+        VistaPrincipal vPrin = new VistaPrincipal();
+        vPrin.crearVista();
+        
     }
     
     public void editarConfiguracion(boolean tiempoA, boolean puntosExtra, boolean aumentoVel, 
-            boolean tiempoD, boolean pena, boolean cong, int frecuencia, int nivel, int tiempoDura){
+            boolean tiempoD, boolean pena, boolean cong, int frecuencia, int nivel, double tiempoDura){
         aTiempo = tiempoA;
         puntos = puntosExtra;
         aVelocidad = aumentoVel;

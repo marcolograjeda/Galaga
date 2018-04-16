@@ -31,7 +31,7 @@ public class Configuracion {
     JComboBox listaVelocidad = new JComboBox(elementosVelocidad);
     JSpinner spinner = new JSpinner();
     public JDialog crearConfiguracion(boolean aTiempo, boolean puntos, boolean aVelocidad, boolean dTiempo, 
-            boolean penalizacion, boolean congelacion, int frecuencia, int nivelVelocidad, int tiempoP){
+            boolean penalizacion, boolean congelacion, int frecuencia, int nivelVelocidad, double tiempoP){
         JFrame frameConfiguracion = new JFrame();
         frameConfiguracion.setSize(1000,800);
         frameConfiguracion.setLayout(null);
@@ -107,9 +107,10 @@ public class Configuracion {
         
         
         spinner.setBounds(100, 415, 70, 30);
-        SpinnerNumberModel nm = new SpinnerNumberModel(tiempoP,1,10,1);
+        SpinnerNumberModel nm = new SpinnerNumberModel(tiempoP,1,10,0.5);
         
         spinner.setModel(nm);
+        ((JSpinner.DefaultEditor)spinner.getEditor()).getTextField().setEditable(false);
         
         JButton btnGuardar = new JButton("Guardar");
         JButton btnCancelar = new JButton("Cancelar");
@@ -122,6 +123,7 @@ public class Configuracion {
                 @Override
                 public void actionPerformed (ActionEvent e){
                     editarConfiguracion();
+                    dialogConfiguracion.dispose();
                 }
             }
         );
@@ -148,9 +150,11 @@ public class Configuracion {
     }
     
     public void editarConfiguracion(){
-        VistaPrincipal vp = new VistaPrincipal();
-        vp.editarConfiguracion(cbATiempo.isSelected(), cbPuntos.isSelected(), cbVelocidad.isSelected(), 
+        Ejecucion ejec = new Ejecucion();
+        ejec.editarConfiguracion(cbATiempo.isSelected(), cbPuntos.isSelected(), cbVelocidad.isSelected(), 
                 cbDTiempo.isSelected(), cbPenalizacion.isSelected(), cbCongelacion.isSelected(), 
-                listaFrecuencia.getSelectedIndex(), listaVelocidad.getSelectedIndex(), spinner.getComponentCount());
+                listaFrecuencia.getSelectedIndex(), listaVelocidad.getSelectedIndex(), 
+                Double.parseDouble(spinner.getValue().toString()));
+        
     }
 }

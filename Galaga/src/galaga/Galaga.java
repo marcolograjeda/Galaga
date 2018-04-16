@@ -15,8 +15,10 @@ public class Galaga {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        VistaPrincipal vPrin = new VistaPrincipal();
-        vPrin.crearVista();
+//        VistaPrincipal vPrin = new VistaPrincipal();
+//        vPrin.crearVista();
+        Ejecucion ejec = new Ejecucion();
+        ejec.iniciarJuego();
     }
     
 }

@@ -5,13 +5,20 @@
  */
 package galaga;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import javax.swing.BorderFactory;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import static javax.swing.JOptionPane.showMessageDialog;
+import javax.swing.JPanel;
 import javax.swing.JToolBar;
 
 /**
@@ -19,25 +26,19 @@ import javax.swing.JToolBar;
  * @author Junior
  */
 public class VistaPrincipal {
-
-    static boolean aTiempo = true;
-    static boolean puntos = true;
-    static boolean aVelocidad = true;
-    static boolean dTiempo = true;
-    static boolean penalizacion = true;
-    static boolean congelacion = true;
-    static int[] opciones = new int[3]; //frecuencia = [0], nivel = [1], tiempoDuracion = [2]
-    
+    static JPanel panel;
+    static PanelJuego juego;
     public void crearVista(){
-        opciones[0] = 1;
-        opciones[1] = 0;
-        opciones[2] = 1;
         JFrame vistaPrincipal = new JFrame();
-        vistaPrincipal.setSize(1000,650);
+        vistaPrincipal.setSize(900,650);
         vistaPrincipal.setLayout(null);
         vistaPrincipal.setResizable(false);
         vistaPrincipal.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         vistaPrincipal.setTitle("Odisea Espacial");
+        panel = new JPanel(null);
+        vistaPrincipal.setLayout(new BorderLayout());
+        vistaPrincipal.getContentPane().add(panel, BorderLayout.CENTER);
+        vistaPrincipal.setLocationRelativeTo(null);
         
         JMenuBar menu = new JMenuBar();
         JMenuItem itmComenzar, itmConfiguracion, itmPuntuacion, itmSalir; 
@@ -47,24 +48,32 @@ public class VistaPrincipal {
         itmPuntuacion = new JMenuItem("Puntuación");
         itmSalir = new JMenuItem("Salir");
         
+        //vistaPrincipal.add(nave);
         menu.add(itmComenzar);
         menu.add(itmConfiguracion);
         menu.add(itmPuntuacion);
         menu.add(itmSalir);
-        eventos(itmComenzar);
+        
+        
         itmConfiguracion.addActionListener(
             new ActionListener(){
                 @Override
                 public void actionPerformed (ActionEvent e){
                     Configuracion config = new Configuracion();
                     System.out.println("Entre");
-                    Ejecucion ejec = new Ejecucion();
-                    
-                    JDialog configuracion = config.crearConfiguracion(aTiempo, puntos, aVelocidad, 
-                            dTiempo, penalizacion, congelacion, opciones[0], 
-                            opciones[1], opciones[2]);
+                    JDialog configuracion = config.crearConfiguracion(Ejecucion.aTiempo, Ejecucion.puntos, Ejecucion.aVelocidad, 
+                            Ejecucion.dTiempo, Ejecucion.penalizacion, Ejecucion.congelacion, (int)Ejecucion.opciones[0], 
+                            (int)Ejecucion.opciones[1], Ejecucion.opciones[2]);
                     configuracion.show();
                     configuracion.setSize(400, 600);
+                }
+            }
+        );
+        itmComenzar.addActionListener(
+            new ActionListener(){
+                @Override
+                public void actionPerformed (ActionEvent e){
+                    nuevoJuego();
                 }
             }
         );
@@ -72,8 +81,13 @@ public class VistaPrincipal {
         eventos(itmPuntuacion);
         eventos(itmSalir);
         
-        vistaPrincipal.setJMenuBar(menu);
+        vistaPrincipal.getContentPane().add(menu, BorderLayout.NORTH);
+        //vistaPrincipal.setJMenuBar(menu);
         vistaPrincipal.setVisible(true);
+        MoverNave mn = new MoverNave();
+        mn.start();
+        MoverBala mb = new MoverBala();
+        mb.start();
     }
     
     public void eventos(JMenuItem itmDelMenu){
@@ -86,7 +100,18 @@ public class VistaPrincipal {
         itmDelMenu.addActionListener(accion);
     }
     
-    public void editarConfiguracion(boolean tiempoA, boolean puntosExtra, boolean aumentoVel, 
+    public void nuevoJuego(){
+        if (juego != null) {            
+            panel.remove(juego);
+            juego = null;
+        }
+        juego = new PanelJuego();        
+        panel.add(juego);
+        juego.requestFocus();
+        panel.repaint();
+    }
+    
+    /*public void editarConfiguracion(boolean tiempoA, boolean puntosExtra, boolean aumentoVel, 
             boolean tiempoD, boolean pena, boolean cong, int frecuencia, int nivel, int tiempoDura){
         aTiempo = tiempoA;
         puntos = puntosExtra;
@@ -97,5 +122,5 @@ public class VistaPrincipal {
         opciones[0] = frecuencia;
         opciones[1] = nivel;
         opciones[2] = tiempoDura;
-    }
+    }*/
 }
