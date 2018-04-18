@@ -5,31 +5,56 @@
  */
 package galaga;
 
+
 import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.net.URL;
 import java.util.ArrayList;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.Timer;
 
 /**
  *
  * @author Junior
  */
 public class PanelJuego extends JPanel implements KeyListener{
+    
     static int juegoIniciado = 0;
     static JLabel nave = new JLabel();
-    static int movimiento, naveX, naveY, bala;
+    static int movimiento, naveX, naveY, bala, puntos;
+    static boolean pausa;
     static ArrayList<JLabel> balas = new ArrayList<JLabel>();
     static Enemigo[][] enemigos = new Enemigo[5][6];
     static int direccion =1;
+    static String elTiempo = "";
+    static double velocidad;
+    URL url = getClass().getResource("/img/arena.jpg");
+    Image image = new ImageIcon(url).getImage();
+
+    @Override
+    public void paint(Graphics g){
+        g.drawImage(image, 0, 0, getWidth(),getHeight(), this);
+        setOpaque(false);
+        super.paint(g);
+        
+    }
     public PanelJuego(){
         int tipoEnemigo = 0;
         this.addKeyListener(this);
-        this.setBounds(50, 75, 800, 500);
-        this.setBackground(Color.cyan);
+        this.setBounds(0, 0, 800, 500);
         this.add(nave);
-        nave.setBounds(10, 20, 50, 50);
+        naveX = 10;
+        naveY = 20;
+        puntos = 0;
+        velocidad = Ejecucion.opciones[1]+1;
+        nave.setBounds(naveX, naveY, 50, 50);
         nave.setOpaque(true);
         nave.setBackground(Color.black);
         for(int x=0;x<5;x++){
@@ -57,25 +82,32 @@ public class PanelJuego extends JPanel implements KeyListener{
                     break;
                 }
             }
-            
             if(x==0||x==2){
                 tipoEnemigo++;
+                
             }
         }
         MoverNave mn = new MoverNave();
         MoverBala mb = new MoverBala();
+        MoverEnemigo me = new MoverEnemigo();
+        Reloj rel = new Reloj();
+        
+        //time.setVisible(true);
+        
         if(juegoIniciado==0){
             mb.start();
             mn.start();
+            me.start();
+            rel.start();
             juegoIniciado=1;
         }else{
             mb.stop();
             mn.stop();
+            me.stop();
+            me.start();
             mb.start();
             mn.start();
         }
-        //VerificarEnemigo ve = new VerificarEnemigo();
-        //ve.start();
     }
     
     @Override
@@ -96,6 +128,26 @@ public class PanelJuego extends JPanel implements KeyListener{
             bala = 1;
             Disparar disparar = new Disparar();
             disparar.start();
+        }else if(e.getKeyCode() == KeyEvent.VK_ESCAPE){
+            MoverNave mn = new MoverNave();
+            MoverBala mb = new MoverBala();
+            MoverEnemigo me = new MoverEnemigo();
+            try{
+                synchronized(mn){
+                    mn.wait();
+                }
+                synchronized(me){
+                    me.wait();
+                }
+                synchronized(mb){
+                    mb.wait();
+                }
+                
+            }catch(Exception ex){
+                ex.printStackTrace();
+            }
+            
+            
         }
     }
 
@@ -107,5 +159,4 @@ public class PanelJuego extends JPanel implements KeyListener{
             bala = 0;
         }
     }
-    
 }

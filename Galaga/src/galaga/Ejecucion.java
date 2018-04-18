@@ -21,7 +21,7 @@ public class Ejecucion {
     public void iniciarJuego(){
         opciones[0] = 1;
         opciones[1] = 0;
-        opciones[2] = 1;
+        opciones[2] = 1.5;
         VistaPrincipal vPrin = new VistaPrincipal();
         vPrin.crearVista();
         
@@ -38,5 +38,6 @@ public class Ejecucion {
         opciones[0] = frecuencia;
         opciones[1] = nivel;
         opciones[2] = tiempoDura;
+        VistaPrincipal.tiempo = (int)(60*tiempoDura);
     }
 }

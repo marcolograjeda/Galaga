@@ -20,6 +20,7 @@ import javax.swing.JMenuItem;
 import static javax.swing.JOptionPane.showMessageDialog;
 import javax.swing.JPanel;
 import javax.swing.JToolBar;
+import javax.swing.Timer;
 
 /**
  *
@@ -28,17 +29,25 @@ import javax.swing.JToolBar;
 public class VistaPrincipal {
     static JPanel panel;
     static PanelJuego juego;
+    static JFrame vistaPrincipal = new JFrame();
+    static JLabel time, velocidad, puntuacion;
+    static Timer reloj;
+    static int tiempo = (int)(Ejecucion.opciones[2]*60);
+    
     
     public void crearVista(){
-        JFrame vistaPrincipal = new JFrame();
+        
         vistaPrincipal.setSize(900,650);
         vistaPrincipal.setLayout(null);
         vistaPrincipal.setResizable(false);
         vistaPrincipal.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        vistaPrincipal.setTitle("Odisea Espacial");
+        vistaPrincipal.setTitle("Odisea Espacial");            
+        
         panel = new JPanel(null);
-        vistaPrincipal.setLayout(new BorderLayout());
-        vistaPrincipal.getContentPane().add(panel, BorderLayout.CENTER);
+        vistaPrincipal.setLayout(null);
+        panel.setBounds(50, 75, 800, 500);
+        //vistaPrincipal.getContentPane().add(panel, BorderLayout.CENTER);
+        vistaPrincipal.add(panel);
         vistaPrincipal.setLocationRelativeTo(null);
         
         JMenuBar menu = new JMenuBar();
@@ -70,11 +79,13 @@ public class VistaPrincipal {
                 }
             }
         );
+        
         itmComenzar.addActionListener(
             new ActionListener(){
                 @Override
                 public void actionPerformed (ActionEvent e){
                     nuevoJuego();
+                    //reloj.start();
                 }
             }
         );
@@ -82,10 +93,17 @@ public class VistaPrincipal {
         eventos(itmPuntuacion);
         eventos(itmSalir);
         
-        vistaPrincipal.getContentPane().add(menu, BorderLayout.NORTH);
-        //vistaPrincipal.setJMenuBar(menu);
-        vistaPrincipal.setVisible(true);
+        time = new JLabel("00:00");
+        time.setBounds(50, 20, 50, 50);
+        time.setVisible(true);
+        puntuacion = new JLabel("0");
+        puntuacion.setBounds(120, 20, 50, 50);
         
+        vistaPrincipal.add(time);
+        vistaPrincipal.add(puntuacion);
+        vistaPrincipal.getContentPane().add(menu, BorderLayout.NORTH);
+        vistaPrincipal.setJMenuBar(menu);
+        vistaPrincipal.setVisible(true);
     }
     
     public void eventos(JMenuItem itmDelMenu){
@@ -121,4 +139,5 @@ public class VistaPrincipal {
         opciones[1] = nivel;
         opciones[2] = tiempoDura;
     }*/
+    
 }

@@ -4,12 +4,11 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/marco/Documents/USAC/2018/IPC1/Laboratorio/Practica2_201700327/Galaga/Galaga/src/galaga/PanelJuego.java</file>
-            <file>file:/C:/Users/marco/Documents/USAC/2018/IPC1/Laboratorio/Practica2_201700327/Galaga/Galaga/src/galaga/MoverBala.java</file>
             <file>file:/C:/Users/marco/Documents/USAC/2018/IPC1/Laboratorio/Practica2_201700327/Galaga/Galaga/src/galaga/VistaPrincipal.java</file>
-            <file>file:/C:/Users/marco/Documents/USAC/2018/IPC1/Laboratorio/Practica2_201700327/Galaga/Galaga/src/galaga/VerificarEnemigo.java</file>
             <file>file:/C:/Users/marco/Documents/USAC/2018/IPC1/Laboratorio/Practica2_201700327/Galaga/Galaga/src/galaga/MoverNave.java</file>
+            <file>file:/C:/Users/marco/Documents/USAC/2018/IPC1/Laboratorio/Practica2_201700327/Galaga/Galaga/src/galaga/MoverEnemigo.java</file>
             <file>file:/C:/Users/marco/Documents/USAC/2018/IPC1/Laboratorio/Practica2_201700327/Galaga/Galaga/src/galaga/Ejecucion.java</file>
-            <file>file:/C:/Users/marco/Documents/USAC/2018/IPC1/Laboratorio/Practica2_201700327/Galaga/Galaga/src/galaga/Configuracion.java</file>
+            <file>file:/C:/Users/marco/Documents/USAC/2018/IPC1/Laboratorio/Practica2_201700327/Galaga/Galaga/src/galaga/Reloj.java</file>
         </group>
     </open-files>
 </project-private>

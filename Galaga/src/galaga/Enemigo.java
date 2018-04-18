@@ -20,7 +20,7 @@ public class Enemigo extends JLabel{
             tipoEnemigo = 0;
         }else if(tipo == 1){
             vida = 3;
-            tipoEnemigo = 2;
+            tipoEnemigo = 1;
         }else if(tipo == 2){
             vida = 4;
             tipoEnemigo = 2;

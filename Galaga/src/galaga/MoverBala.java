@@ -13,9 +13,12 @@ import javax.swing.Timer;
  * @author Junior
  */
 public class MoverBala extends Thread{
-    
+    static int tipo1, tipo2, tipo3;
     @Override
     public void run(){
+        
+        tipo1 = 6;
+        tipo2 = 12;
         Timer timer = new Timer(5, (ActionEvent e)->{
             for(int x=0;x<PanelJuego.balas.size();x++){
                 boolean matarEnemigo = false;
@@ -26,6 +29,29 @@ public class MoverBala extends Thread{
                                 PanelJuego.balas.get(x).getBounds())){
                                 if(PanelJuego.enemigos[posicionX][posicionY].getVida()==1){
                                     VistaPrincipal.juego.remove(PanelJuego.enemigos[posicionX][posicionY]);
+                                    System.out.println(PanelJuego.enemigos[posicionX][posicionY].getTipoEnemigo());
+                                    switch(PanelJuego.enemigos[posicionX][posicionY].getTipoEnemigo()){
+                                        case 0:
+                                            PanelJuego.puntos=PanelJuego.puntos+10;
+                                            VistaPrincipal.puntuacion.setText(Integer.toString(PanelJuego.puntos));
+                                            tipo1 =tipo1-1;
+                                            if(tipo1==0){
+                                                PanelJuego.velocidad = (Ejecucion.opciones[1]+1)*1.5;
+                                            }
+                                        break;
+                                        case 1:
+                                            PanelJuego.puntos=PanelJuego.puntos+20;
+                                            VistaPrincipal.puntuacion.setText(Integer.toString(PanelJuego.puntos));
+                                            tipo2 =tipo2-1;
+                                            if(tipo2==0){
+                                                PanelJuego.velocidad = (Ejecucion.opciones[1]+1)*2;
+                                            }
+                                        break;
+                                        case 2:
+                                            PanelJuego.puntos=PanelJuego.puntos +30;
+                                            VistaPrincipal.puntuacion.setText(Integer.toString(PanelJuego.puntos));
+                                        break;
+                                    }
                                     PanelJuego.enemigos[posicionX][posicionY] = null;
                                     VistaPrincipal.juego.remove(PanelJuego.balas.get(x));
                                     PanelJuego.balas.remove(x);
