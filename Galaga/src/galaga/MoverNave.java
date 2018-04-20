@@ -13,30 +13,34 @@ import javax.swing.Timer;
  * @author Junior
  */
 public class MoverNave extends Thread{
-    
+    int posX, posY;
     @Override
     public void run(){
         int tiempo = 100-((40*((int)Ejecucion.opciones[1]+1)));
         System.out.println(tiempo);
         System.out.println(Ejecucion.opciones[1]);
-        //int posX
+        posX = 10;
+        posY = 10;
         Timer timer = new Timer(5, (ActionEvent e)->{
             switch(PanelJuego.movimiento){
                 case 1:
                     if(PanelJuego.naveY>0){
+                        PanelJuego.naveX = PanelJuego.naveX;
                         PanelJuego.naveY= PanelJuego.naveY-2;
-                        PanelJuego.nave.setLocation(10, PanelJuego.naveY);
+                        posY  = posY-2;
+                        PanelJuego.nave.setBounds(10, posY,50,50);
                     }
                 break;
                 case 2:
                     if(PanelJuego.naveY<450){
+                        PanelJuego.naveX = PanelJuego.naveX;
                         PanelJuego.naveY= PanelJuego.naveY+2;
-                        PanelJuego.nave.setLocation(10, PanelJuego.naveY);
+                        posY  = posY+2;
+                        PanelJuego.nave.setBounds(10, posY,50,50);
                     }
                 break;
             }
-            PanelJuego.nave.setBounds(PanelJuego.naveX, PanelJuego.naveY,50,50);
-            //System.out.println("Coordenada de la nave "+PanelJuego.nave.getX()+", "+PanelJuego.nave.getY());
+            PanelJuego.nave.setBounds(posX, posY,50,50);
         });
         timer.start();
     }

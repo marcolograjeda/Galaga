@@ -13,34 +13,32 @@ import javax.swing.Timer;
  * @author Junior
  */
 public class MoverEnemigo extends Thread {
-    static Integer[][] posiciones = new Integer[30][2];
     static int velocidad = 1;
     @Override
     public void run(){
-        llenarPosiciones();
         Timer timer = new Timer(80/velocidad, (ActionEvent e)->{
             for(int posX= 0;posX<5;posX++){
                 if(PanelJuego.enemigos[posX][0]!=null){
-                    if(PanelJuego.enemigos[posX][0].getY()<10&&PanelJuego.enemigos[posX][0].getY()>-20){
+                    if(PanelJuego.enemigos[posX][0].getPosicionY()<10&&PanelJuego.enemigos[posX][0].getPosicionY()>-20){
                         PanelJuego.direccion = 1;
                     }
                 }else{
                     for(int posY= 0;posY<6;posY++){
                         if(PanelJuego.enemigos[posX][posY]!=null){
-                            if(PanelJuego.enemigos[posX][posY].getY()==0){
+                            if(PanelJuego.enemigos[posX][posY].getPosicionY()==0){
                                 PanelJuego.direccion = 1;
                             }
                         }
                     }
                 }
                 if(PanelJuego.enemigos[posX][5]!=null){
-                    if(PanelJuego.enemigos[posX][5].getY()<455&&PanelJuego.enemigos[posX][5].getY()>445){
+                    if(PanelJuego.enemigos[posX][5].getPosicionY()<455&&PanelJuego.enemigos[posX][5].getPosicionY()>445){
                         PanelJuego.direccion = -1;
                     }
                 }else{
                     for(int posY= 0;posY<6;posY++){
                         if(PanelJuego.enemigos[posX][posY]!=null){
-                            if(PanelJuego.enemigos[posX][posY].getY()==0){
+                            if(PanelJuego.enemigos[posX][posY].getPosicionY()==0){
                                 PanelJuego.direccion = -1;
                             }
                         }
@@ -50,27 +48,33 @@ public class MoverEnemigo extends Thread {
             int contador = 0;
             for(int posicionX= 0;posicionX<5;posicionX++){
                 for(int posicionY=0;posicionY<6;posicionY++){
-                    if(posiciones[contador][0]!=null){
-                        if(PanelJuego.enemigos[posicionX][posicionY]!=null){
-                            int coorX = posiciones[contador][0];
-                            int coorY = posiciones[contador][1];
-                            //System.out.println("Coordenada x "+coorX+" coordenada y "+coorY);
-                            int moverX = -1*((int)Ejecucion.opciones[1]+1);
-                            if(PanelJuego.velocidad==((Ejecucion.opciones[1]+1)*1.5)){
-                                PanelJuego.enemigos[posicionX][posicionY].setBounds(coorX-10, coorY+(10*PanelJuego.direccion), 50, 50);
-                                
-                                //System.out.println("Velocidad 1");
-                            }else if(PanelJuego.velocidad==((Ejecucion.opciones[1]+1)*2)){
-                                PanelJuego.enemigos[posicionX][posicionY].setBounds(coorX-20, coorY+(10*PanelJuego.direccion)
-                                        , 50, 50);
-                            }else{
-                                PanelJuego.enemigos[posicionX][posicionY].setBounds(coorX-1, coorY+(10*PanelJuego.direccion), 50, 50);
-                            }
-                            
-                            posiciones[contador][0]=coorX-1;
-                            posiciones[contador][1]=coorY+(10*PanelJuego.direccion);
+                    if(PanelJuego.enemigos[posicionX][posicionY]!=null){
+                        int moverX = -1*((int)Ejecucion.opciones[1]+1);
+                        if(PanelJuego.velocidad==((Ejecucion.opciones[1]+1)*1.5)){
+                            PanelJuego.enemigos[posicionX][posicionY].setBounds(PanelJuego.enemigos[posicionX][posicionY].getPosicionX()-2,
+                                    PanelJuego.enemigos[posicionX][posicionY].getPosicionY()+(10*PanelJuego.direccion), 50, 50);
+                            PanelJuego.enemigos[posicionX][posicionY].setPosicionX(PanelJuego.enemigos[posicionX][posicionY].getPosicionX()-2);
+                            PanelJuego.enemigos[posicionX][posicionY].setPosicionY(PanelJuego.enemigos[posicionX][posicionY].getPosicionY()+(10*PanelJuego.direccion));
+                        }else if(PanelJuego.velocidad==((Ejecucion.opciones[1]+1)*2)){
+                            PanelJuego.enemigos[posicionX][posicionY].setBounds(PanelJuego.enemigos[posicionX][posicionY].getPosicionX()-5, 
+                                    PanelJuego.enemigos[posicionX][posicionY].getPosicionY()+(10*PanelJuego.direccion), 50, 50);
+                            PanelJuego.enemigos[posicionX][posicionY].setPosicionX(PanelJuego.enemigos[posicionX][posicionY].getPosicionX()-5);
+                            PanelJuego.enemigos[posicionX][posicionY].setPosicionY(PanelJuego.enemigos[posicionX][posicionY].getPosicionY()+(10*PanelJuego.direccion));
+                        }else{
+                            PanelJuego.enemigos[posicionX][posicionY].setBounds(PanelJuego.enemigos[posicionX][posicionY].getPosicionX()-1,
+                                    PanelJuego.enemigos[posicionX][posicionY].getPosicionY()+(10*PanelJuego.direccion), 50, 50);
+                            PanelJuego.enemigos[posicionX][posicionY].setPosicionX(PanelJuego.enemigos[posicionX][posicionY].getPosicionX()-1);
+                            PanelJuego.enemigos[posicionX][posicionY].setPosicionY(PanelJuego.enemigos[posicionX][posicionY].getPosicionY()+(10*PanelJuego.direccion));
                         }
                     }
+                    /*if(PanelJuego.enemigos[posicionX][posicionY]!=null){
+                    int coorX = PanelJuego.enemigos[posicionX][posicionY].getX();
+                    int coorY = PanelJuego.enemigos[posicionX][posicionY].getY();
+                    System.out.println("Coordenada x "+coorX+" coordenada y "+coorY);
+                    int moverX = -1*((int)Ejecucion.opciones[1]+1);
+                    PanelJuego.enemigos[posicionX][posicionY].setBounds(coorX-1, coorY+(10*PanelJuego.direccion), 50, 50);
+                      */  
+                    
                     contador++;
                 }
             }
@@ -87,6 +91,8 @@ public class MoverEnemigo extends Thread {
                     velocidad = 8;
                 }
             }
+            
+            VistaPrincipal.panel.repaint();
         });
 //            for(int posicionX= 0;posicionX<5;posicionX++){
 //                for(int posicionY=0;posicionY<6;posicionY++){
@@ -100,18 +106,5 @@ public class MoverEnemigo extends Thread {
 //                }
 //            }
         timer.start();
-    }
-    
-    public void llenarPosiciones(){
-        int contador = 0;
-        for(int posicionX= 0;posicionX<5;posicionX++){
-            for(int posicionY=0;posicionY<6;posicionY++){
-                int coorX = PanelJuego.enemigos[posicionX][posicionY].getX();
-                int coorY = PanelJuego.enemigos[posicionX][posicionY].getY();
-                posiciones[contador][0] = coorX;
-                posiciones[contador][1] = coorY;
-                contador++;
-            }
-        }
     }
 }

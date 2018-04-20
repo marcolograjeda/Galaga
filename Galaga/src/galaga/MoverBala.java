@@ -16,7 +16,6 @@ public class MoverBala extends Thread{
     static int tipo1, tipo2, tipo3;
     @Override
     public void run(){
-        
         tipo1 = 6;
         tipo2 = 12;
         Timer timer = new Timer(5, (ActionEvent e)->{
@@ -29,7 +28,6 @@ public class MoverBala extends Thread{
                                 PanelJuego.balas.get(x).getBounds())){
                                 if(PanelJuego.enemigos[posicionX][posicionY].getVida()==1){
                                     VistaPrincipal.juego.remove(PanelJuego.enemigos[posicionX][posicionY]);
-                                    System.out.println(PanelJuego.enemigos[posicionX][posicionY].getTipoEnemigo());
                                     switch(PanelJuego.enemigos[posicionX][posicionY].getTipoEnemigo()){
                                         case 0:
                                             PanelJuego.puntos=PanelJuego.puntos+10;
@@ -92,15 +90,16 @@ public class MoverBala extends Thread{
                 }
                 if(!matarEnemigo){
                     if(PanelJuego.balas.get(x).getX()<795){
-                        PanelJuego.balas.get(x).setBounds(PanelJuego.balas.get(x).getX()+2, 
-                        PanelJuego.balas.get(x).getY(), 10, 5);
+                        PanelJuego.balas.get(x).setBounds(PanelJuego.balas.get(x).getPosicionX()+5, 
+                        PanelJuego.balas.get(x).getPosicionY(), 10, 5);
+                        PanelJuego.balas.get(x).setPosicionX(PanelJuego.balas.get(x).getPosicionX()+5);
                     }else{
                         VistaPrincipal.juego.remove(PanelJuego.balas.get(x));
                         PanelJuego.balas.remove(x);
                     }
                 }
-                VistaPrincipal.juego.repaint();
             }
+            VistaPrincipal.juego.repaint();
         });
         timer.start();
     }

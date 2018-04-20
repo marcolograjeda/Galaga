@@ -29,8 +29,9 @@ public class PanelJuego extends JPanel implements KeyListener{
     static int juegoIniciado = 0;
     static JLabel nave = new JLabel();
     static int movimiento, naveX, naveY, bala, puntos;
-    static boolean pausa;
-    static ArrayList<JLabel> balas = new ArrayList<JLabel>();
+    static boolean pausa, congelado = false;
+    static ArrayList<Bala> balas = new ArrayList<Bala>();
+    static ArrayList<Item> items = new ArrayList<Item>();
     static Enemigo[][] enemigos = new Enemigo[5][6];
     static int direccion =1;
     static String elTiempo = "";
@@ -53,6 +54,11 @@ public class PanelJuego extends JPanel implements KeyListener{
         naveX = 10;
         naveY = 20;
         puntos = 0;
+        int int_minutos = VistaPrincipal.tiempo/60;
+        String minutos = (int_minutos<10) ? "0"+int_minutos : Integer.toString(int_minutos); 
+        int int_segundos = VistaPrincipal.tiempo%60;
+        String segundos = (int_segundos<10) ? "0"+int_segundos : Integer.toString(int_segundos);
+        VistaPrincipal.time.setText(minutos+":"+segundos);
         velocidad = Ejecucion.opciones[1]+1;
         nave.setBounds(naveX, naveY, 50, 50);
         nave.setOpaque(true);
@@ -65,18 +71,24 @@ public class PanelJuego extends JPanel implements KeyListener{
                     case 0:
                         enemigo.setBounds(500+x*60, 20+60*y, 50, 50);
                         enemigo.setBackground(Color.YELLOW);
+                        enemigo.setPosicionX(500+x*60);
+                        enemigo.setPosicionY(20+60*y);
                         enemigos[x][y] = enemigo;
                         this.add(enemigos[x][y]);
                     break;
                     case 1:
                         enemigo.setBounds(500+x*60, 20+60*y, 50, 50);
                         enemigo.setBackground(Color.GRAY);
+                        enemigo.setPosicionX(500+x*60);
+                        enemigo.setPosicionY(20+60*y);
                         enemigos[x][y] = enemigo;
                         this.add(enemigos[x][y]);
                     break;
                     case 2:
                         enemigo.setBounds(500+x*60, 20+60*y, 50, 50);
                         enemigo.setBackground(Color.WHITE);
+                        enemigo.setPosicionX(500+x*60);
+                        enemigo.setPosicionY(20+60*y);
                         enemigos[x][y] = enemigo;
                         this.add(enemigos[x][y]);
                     break;
@@ -91,16 +103,19 @@ public class PanelJuego extends JPanel implements KeyListener{
         MoverBala mb = new MoverBala();
         MoverEnemigo me = new MoverEnemigo();
         Reloj rel = new Reloj();
+        MoverItem mi = new MoverItem();
         
         //time.setVisible(true);
         
         if(juegoIniciado==0){
+            mi.start();
             mb.start();
             mn.start();
             me.start();
             rel.start();
             juegoIniciado=1;
         }else{
+            mi.stop();
             mb.stop();
             mn.stop();
             me.stop();
@@ -117,17 +132,24 @@ public class PanelJuego extends JPanel implements KeyListener{
 
     @Override
     public void keyPressed(KeyEvent e) {
-        naveX = nave.getX();
+        naveX = 10;
         naveY = nave.getY();
 
         if(e.getKeyCode() == KeyEvent.VK_UP){
+            if(!congelado){
+                movimiento = 2;
+            }
             movimiento = 1;
         }else if(e.getKeyCode() == KeyEvent.VK_DOWN){
-            movimiento = 2;
+            if(!congelado){
+                movimiento = 2;
+            }
         }else if(e.getKeyCode() == KeyEvent.VK_SPACE){
-            bala = 1;
-            Disparar disparar = new Disparar();
-            disparar.start();
+            if(!congelado){
+                bala = 1;
+                Disparar disparar = new Disparar();
+                disparar.start();
+            }
         }else if(e.getKeyCode() == KeyEvent.VK_ESCAPE){
             MoverNave mn = new MoverNave();
             MoverBala mb = new MoverBala();

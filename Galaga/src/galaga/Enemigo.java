@@ -14,6 +14,7 @@ import javax.swing.JLabel;
 public class Enemigo extends JLabel{
     int vida;
     int tipoEnemigo;
+    int posicionX, posicionY;
     public Enemigo(int tipo){
         if(tipo == 0){
             vida = 2;
@@ -43,5 +44,19 @@ public class Enemigo extends JLabel{
         this.tipoEnemigo = tipoEnemigo;
     }
     
+    public int getPosicionX() {
+        return posicionX;
+    }
+
+    public int getPosicionY() {
+        return posicionY;
+    }
     
+    public void setPosicionX(int posicionX) {
+        this.posicionX = posicionX;
+    }
+
+    public void setPosicionY(int posicionY) {
+        this.posicionY = posicionY;
+    }
 }

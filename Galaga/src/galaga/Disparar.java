@@ -22,15 +22,7 @@ public class Disparar extends Thread{
     @Override
     public void run(){
         if(PanelJuego.bala==1){
-            JLabel bala = new JLabel();
-            bala.setOpaque(true);
-            bala.setBackground(Color.red);
-            bala.setBounds(50, nave.getY()+24, 10, 5);
-            VistaPrincipal.panel.add(bala);
-            VistaPrincipal.panel.repaint();
-            PanelJuego.balas.add(bala);
-            VistaPrincipal.juego.add(bala);
-            VistaPrincipal.juego.repaint();
+            Bala bala = new Bala(PanelJuego.naveY);
         }
     }
 }

@@ -14,6 +14,7 @@ import javax.swing.Timer;
  * @author Junior
  */
 public class Reloj extends Thread{
+    int segundosTranscurridos=0;
     @Override
     public void run(){
         Timer timer = new Timer(1000, (ActionEvent e)->{
@@ -24,7 +25,14 @@ public class Reloj extends Thread{
             String segundos = (int_segundos<10) ? "0"+int_segundos : Integer.toString(int_segundos);
             //PanelJuego.elTiempo=();
             //PanelJuego pJ = new PanelJuego();
-            //VistaPrincipal.time.setText(minutos+":"+segundos);
+            VistaPrincipal.time.setText(minutos+":"+segundos);
+            segundosTranscurridos++;
+            if(segundosTranscurridos%3==0){
+                int tipoItem = (int)(Math.random()*6);
+                Item item = new Item(tipoItem, PanelJuego.naveY);
+                PanelJuego.items.add(item);
+                VistaPrincipal.juego.add(item);                
+            }
         });
         timer.start();
     }

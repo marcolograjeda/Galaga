@@ -70,7 +70,6 @@ public class VistaPrincipal {
                 @Override
                 public void actionPerformed (ActionEvent e){
                     Configuracion config = new Configuracion();
-                    System.out.println("Entre");
                     JDialog configuracion = config.crearConfiguracion(Ejecucion.aTiempo, Ejecucion.puntos, Ejecucion.aVelocidad, 
                             Ejecucion.dTiempo, Ejecucion.penalizacion, Ejecucion.congelacion, (int)Ejecucion.opciones[0], 
                             (int)Ejecucion.opciones[1], Ejecucion.opciones[2]);
@@ -80,10 +79,18 @@ public class VistaPrincipal {
             }
         );
         
+        time = new JLabel("00:00");
+        time.setBounds(50, 20, 50, 50);
+        time.setVisible(true);
+        puntuacion = new JLabel("0");
+        puntuacion.setBounds(120, 20, 50, 50);
+        
         itmComenzar.addActionListener(
             new ActionListener(){
                 @Override
                 public void actionPerformed (ActionEvent e){
+                    vistaPrincipal.add(time);
+                    vistaPrincipal.add(puntuacion);
                     nuevoJuego();
                     //reloj.start();
                 }
@@ -93,14 +100,8 @@ public class VistaPrincipal {
         eventos(itmPuntuacion);
         eventos(itmSalir);
         
-        time = new JLabel("00:00");
-        time.setBounds(50, 20, 50, 50);
-        time.setVisible(true);
-        puntuacion = new JLabel("0");
-        puntuacion.setBounds(120, 20, 50, 50);
         
-        vistaPrincipal.add(time);
-        vistaPrincipal.add(puntuacion);
+        
         vistaPrincipal.getContentPane().add(menu, BorderLayout.NORTH);
         vistaPrincipal.setJMenuBar(menu);
         vistaPrincipal.setVisible(true);
